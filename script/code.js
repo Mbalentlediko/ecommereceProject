@@ -1,4 +1,7 @@
-// 
+// Set current year
+document.querySelector("[currentYear]").textContent = new Date().getUTCFullYear();
+
+
 let container = document.querySelector('[ourStore]')
 let searchProduct = document.querySelector('[searchProduct]')
 let sortingByAmount = document.querySelector('[sorting]')
