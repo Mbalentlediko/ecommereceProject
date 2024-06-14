@@ -2,6 +2,9 @@
 // Create products and store it on the local storage
 // Select the wrapper element
 let wrapper = document.querySelector("[recentProducts]");
+let cartBtn = document.querySelector("[cart-btn]")
+
+let checkoutItems = []
 
 let allProducts = document.querySelector("[allProducts]")
 
@@ -77,7 +80,7 @@ function displayProducts(products){
                         <h5 class="card-title">${product.productName}</h5>
                         <p class="card-text">${product.description}</p>
                         <p class="card-text">R${product.amount}</p>
-                        <button class="btn btn-info">Add to cart</button>
+                        <button class="btn btn-info" onclick="addToCart(${product.id})"><i class="bi bi-bag-fill"></i></button>
                     </div>
                 </div>
             ` 
@@ -125,3 +128,26 @@ window.onload = () => {
     ? JSON.parse(localStorage.getItem("checkout")).length
     : 0;
 };
+
+
+function addToCart(productId) {
+   try {
+    let cartItems = JSON.parse(localStorage.getItem("cart")) || []
+    products.forEach(item => {
+        if(item.id === productId){
+            console.log(item);
+            cartItems.push(item)
+            localStorage.setItem("cart", JSON.stringify(cartItems))
+            updateCounter()
+        }
+    })
+   } catch (error) {
+    alert("Product could not be added to cart.")
+    console.error("Error adding to cart", error);
+   }
+}
+
+function updateCounter() {
+    let cartItems = JSON.parse(localStorage.getItem("cart"))
+    document.querySelector("[counter]").textContent = cartItems.length
+}

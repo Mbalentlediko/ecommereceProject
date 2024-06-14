@@ -1,95 +1,86 @@
-// 
-// Declare the variables at the top-level scope
-let cart = [];
-let totalPrice = 0;
-let mainContainer;
-let checkoutTable;
 
-// Function to create the checkout table
-function createCheckoutTable() {
-  // Create the table element
-  const checkoutTable = document.createElement('table');
-  checkoutTable.classList.add('table', 'table-striped');
 
-  // Create the table body
-  const tbody = document.createElement('tbody');
+// Load checkout items from localStorage
+// let orders = JSON.parse(localStorage.getItem("checkout")) || [];
+// let tableElement = document.querySelector("[table]");
+// let checkoutTotal = document.querySelector("[checkoutTotal]");
 
-  // Iterate through the cart items
-  cart.forEach(item => {
-    // Create a new row
-    const row = document.createElement('tr');
+let checkoutContainer = document.getElementById('checkout-content')
 
-    // Product
-    const productCell = document.createElement('td');
-    productCell.textContent = item.name;
-    row.appendChild(productCell);
+let checkoutItems = JSON.parse(localStorage.getItem("cart"))
 
-    // Price
-    const priceCell = document.createElement('td');
-    priceCell.textContent = `$${item.price.toFixed(2)}`;
-    row.appendChild(priceCell);
+function updateCheckout(products) {
+  if (products && products.length > 0) {
+    try {
+      checkoutContainer.innerHTML = ""
 
-    // Quantity
-    const quantityCell = document.createElement('td');
-    const quantityInput = document.createElement('input');
-    quantityInput.type = 'number';
-    quantityInput.value = item.quantity;
-    quantityInput.classList.add('form-control');
-    quantityInput.addEventListener('change', () => updateItemQuantity(item.id, quantityInput.value));
-    quantityCell.appendChild(quantityInput);
-    row.appendChild(quantityCell);
+      products.forEach(item => {
+        let existingItem = checkoutItems.find(existingItem => existingItem.id === item.id);
+        if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            item.quantity = 1;
+            checkoutItems.push(item);
+          }
+          const cartItemHTML = `
+          <div class="cart-items row">
+            <img class="col cart-item-image" src="${item.img_url}" width="100" height="100">
+            <span class="col cart-item-title">${item.productName}</span>
+            <div class="col column cart-price cart-column quantity-input">R${item.amount}</div>
+            <div class="col"><input class="cart-quantity-input quantity-input" type="number" value="${item.quantity}" quantity-element data-product-id="${item.id}"></div> 
+            <div class="col"><input class="col" readonly placeholder="Total" subTotal data-product-id="${item.id}"></input></div>
+            <div class="col"><button class="col btn btn-danger" type="button">REMOVE</button></div>
+          </div>
+          `;
 
-    // Total
-    const totalCell = document.createElement('td');
-    const itemTotal = item.price * item.quantity;
-    totalCell.textContent = `$${itemTotal.toFixed(2)}`;
-    row.appendChild(totalCell);
+        checkoutContainer.innerHTML += cartItemHTML
 
-    // Add row to the table body
-    tbody.appendChild(row);
-
-    // Update the total price
-    totalPrice += itemTotal;
-  });
-
-  // Create the total row
-  const totalRow = document.createElement('tr');
-  const totalLabelCell = document.createElement('td');
-  totalLabelCell.textContent = 'Total:';
-  totalLabelCell.colSpan = 3;
-  totalLabelCell.classList.add('fw-bold');
-  const totalAmountCell = document.createElement('td');
-  totalAmountCell.textContent = `R${totalPrice.toFixed(2)}`;
-  totalAmountCell.classList.add('fw-bold');
-  totalRow.appendChild(totalLabelCell);
-  totalRow.appendChild(totalAmountCell);
-  tbody.appendChild(totalRow);
-
-  checkoutTable.appendChild(tbody);
-  return checkoutTable;
-}
-
-// Function to update the item quantity in the cart
-function updateItemQuantity(itemId, newQuantity) {
-  cart = cart.map(item => {
-    if (item.id === itemId) {
-      item.quantity = parseInt(newQuantity);
+        const cartItemElement = checkoutContainer.lastElementChild;
+        let quantityElement = document.querySelector(`[quantity-element]`);
+        let subTotalElement = document.querySelector(`[subTotal]`);
+        
+        quantityElement.addEventListener("change", () => {
+            let price = item.amount;
+            let quantity = quantityElement.value;
+            let subTotal = price * quantity;
+            subTotalElement.value = `R${subTotal.toFixed(2)}`;
+          })
+      })
+    } catch (error) {
+      console.error("Cannot display cart items", error);
     }
-    return item;
-  });
-  localStorage.setItem('cart', JSON.stringify(cart));
-  checkoutTable = createCheckoutTable();
-  mainContainer.innerHTML = '';
-  mainContainer.appendChild(checkoutTable);
+  } else {
+    checkoutContainer.innerHTML = "Your cart is empty.";
+  }
 }
 
-// Load the cart from localStorage
-const cartFromStorage = localStorage.getItem('cart');
-if (cartFromStorage) {
-  cart = JSON.parse(cartFromStorage);
-}
+updateCheckout(checkoutItems)
 
-// Append the checkout table to the main container
-mainContainer = document.querySelector('main');
-checkoutTable = createCheckoutTable();
-mainContainer.appendChild(checkoutTable);
+
+// // Event listener for quantity change
+// document.addEventListener("change", (event) => {
+//   if (event.target.matches("[quantity]")) {
+//     let index = event.target.getAttribute("data-index");
+//     let price = orders[index].amount;
+//     let quantity = event.target.value;
+//     let subtotalElement = event.target.closest(".cart-row").querySelector("[subtotal]");
+//     let subtotal = price * quantity;
+//     subtotalElement.textContent = `R${subtotal.toFixed(2)}`;
+//     calculateTotal();
+//   }
+// });
+
+// // Event listener for removing items
+// document.addEventListener("click", (event) => {
+//   if (event.target.closest(".btn-remove")) {
+//     let index = event.target.closest(".btn-remove").getAttribute("data-index");
+//     orders.splice(index, 1);
+//     localStorage.setItem("checkout", JSON.stringify(orders));
+//     updateCheckoutPage();
+//     calculateTotal();
+//   }
+// });
+
+// // Initial call to update the checkout page
+// updateCheckoutPage();
+

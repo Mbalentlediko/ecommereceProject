@@ -142,3 +142,7 @@ form label {
 /* #contactPage{
   background-color:rgb(56, 55, 55);
 } */
+
+img[alt="product-img"]{
+  width: 7rem;
+}
