@@ -1,10 +1,10 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 *,
 **::after,
-**::before{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+**::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .navbar {
@@ -14,11 +14,10 @@
   background-color: black;
   color: gold;
   padding: 10px 20px;
-  & img[alt='logo']{
+  & img[alt="logo"] {
     width: 4rem;
+  }
 }
-}
-
 
 .navbar a {
   color: gold;
@@ -28,6 +27,16 @@
 
 .navbar a:hover {
   color: white;
+}
+
+/*product page*/
+.card-img-top{
+  width: 100%;
+}
+
+.card{
+  width: 18rem;
+  padding: 0;
 }
 
 /* Responsive Styles */
@@ -43,90 +52,93 @@
   }
 }
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 main {
-    flex: 1;
+  flex: 1;
 }
 footer {
-    background-color: #343a40;
-    color: #ffffff;
+  background-color: #343a40;
+  color: #ffffff;
 }
 
-.display-2{
-        font-family: "Italianno", cursive;
-        font-weight: 400;
-        font-style: normal;
-        text-align: center;
-        color: gold;
+.display-2 {
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  color: gold;
+}
+h2 {
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  color: gold;
+}
+h1 {
+  font-family: "Italianno", cursive;
+  font-weight: 450;
+  font-style: normal;
+  text-align: center;
+  color: gold;
+}
+h2 {
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  color: gold;
+}
+h5 {
+  font-family: "Italianno", cursive;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  color: gold;
+}
+#bgp {
+  background-image: url("https://mbalentlediko.github.io/Images/static/satin.jpg"); /* Replace 'path/to/your/image.jpg' with your image file path */
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 
-      }
-      h2{
-        font-family: "Italianno", cursive;
-        font-weight: 400;
-        font-style: normal;
-        text-align: center;
-        color: gold;
+.carousel-item img {
+  margin: auto;
+  border-radius: 50%;
+  height: auto;
+}
+.pic {
+  /* background-image: url('https://mbalentlediko.github.io/Images/static/altbgp.jpg');  */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+input {
+  border-radius: 5px;
+}
+form {
+  font-family: Maiden;
+  font-size: large;
+  color: #8b4513;
+  height: min-content;
+}
+form label {
+  border-radius: 5px;
+  display: block;
+}
+.contact-info {
+  font-family: Maiden;
+  font-size: large;
+  color: #8b4513;
+}
 
-      }
-      h1{
-        font-family: "Italianno", cursive;
-        font-weight: 450;
-        font-style: normal;
-        text-align: center;
-        color: gold;
-
-      }
-      h2{
-        font-family: "Italianno", cursive;
-        font-weight: 400;
-        font-style: normal;
-        text-align: center;
-        color: gold;
-
-      }
-       #bgp{
-        background-image: url('https://mbalentlediko.github.io/Images/static/satin.jpg'); /* Replace 'path/to/your/image.jpg' with your image file path */
-    background-size: cover; /* Cover the entire background */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat;
-       }
-       ::-webkit-scrollbar{
-        display: none;
-       }
-      
-    .carousel-item img {
-        margin:auto;
-        border-radius: 50%;
-        height: auto; 
-
-    }
-    .pic {
-        /* background-image: url('https://mbalentlediko.github.io/Images/static/altbgp.jpg');  */
-        background-size: cover; 
-        background-position: center; 
-        background-repeat: no-repeat;
-    }
-    input {
-        border-radius: 5px;
-    }
-    form {
-        font-family: Maiden;
-        font-size: large;
-        color: #8B4513;
-        height: min-content;
-    }
-    form label {
-        border-radius: 5px;
-        display: block;
-    }
-    .contact-info {
-        font-family: Maiden;
-        font-size: large;
-        color: #8B4513;
-    }
-    
-        
-
+/* #contactPage{
+  background-color:rgb(56, 55, 55);
+} */
